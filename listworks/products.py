@@ -15,15 +15,16 @@ mobiles = [
 print (f"Total number of mobiles= {len(mobiles)}")
 
 # q1 total number of out_of_stock mobiles
-ous_mob=[qty for qty in mobiles if qty[6]==0]
+ous_mob=[qty for qty in mobiles if qty[-1]==0]
 print(f"Number of out of stock mobiles are: {len(ous_mob)}")
 
 # q2 total stock
-tot_stock=sum([qty[6] for qty in mobiles  if qty[6]>0])
+tot_stock=sum([qty[-1] for qty in mobiles])
 print(f"Number of mobiles in stock are: {tot_stock}")
 
 # q3 pritn mobiles available in range 20k to 30k
-range_mobile=[price for price in mobiles if price[4]>=20000 and price[4]<=30000]
+#range_mobile=[price for price in mobiles if price[4]>=20000 and price[4]<=30000]
+range_mobile=[price for price in mobiles if price[4] in range(20000,30000)]
 print(f"Available mobiles in the range 20k to 30k are:{range_mobile}")
 
 # q4 print all 5g phone
@@ -35,12 +36,15 @@ samsung_mobile=[hset for hset in mobiles if hset[5]=="samsung"]
 print(f"samsung mobiles are:{samsung_mobile}")
 
 # q6 print costly mobile
-costly_mobile=[price for price in mobiles if price[4]>30000]
+# prices=max([mob[4] for mob in mobiles])
+# costly_mobile=[mob for mob in mobiles if mob[4]==prices]
+costly_mobile=max(mobiles,key=lambda mob:mob[4])
 print(f"costly mobiles are:{costly_mobile}")
 
 
 # q7 prin low cost mobiles
-lowcost_mobile=[price for price in mobiles if price[4]<20000]
+
+lowcost_mobile=min(mobiles,key=lambda mob:mob[4])
 print(f"low cost mobiles are:{lowcost_mobile}")
 
 
@@ -53,14 +57,15 @@ disp_mobile=[disp for disp in mobiles if disp[3]=="AMOLED"]
 print(f"count of amoled mobiles:{len(disp_mobile)}")
 
 # q10 sort mobiles based on price oredr by desc
-# order_mobile=([price for price in mobiles if price[4]>=0])
-# print(f"order of mobiles:{order_mobile}")
+mobiles.sort(reverse=True,key=lambda mob:mob[4])
+print(f"Order of mobiles:{mobiles}")
+
 
 # q11 sort mobiles based on avl stock oredr by desc
 
 
 # q12 is there any mobile available at rs 10000 ?
-avail_mobile=[price for price in mobiles if price[4]==10000]
+avail_mobile=[price[4]==10000 for price in mobiles]
 print(f"Mobiles are available at rs 10000 : {avail_mobile is True}")
 
 # q12 list all mobiles having same price
